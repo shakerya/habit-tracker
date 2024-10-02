@@ -48,9 +48,18 @@ document.addEventListener("DOMContentLoaded", function() {
         counterSpan.classList.add('counter');
         counterSpan.textContent = `${habit.currentCount} / ${habit.goal}`;
 
+        const progressBar = document.createElement('div');
+        progressBar.classList.add('progress-bar');
+
+        const progressBarFill = document.createElement('div');
+        progressBarFill.classList.add('progress-bar-fill');
+        progressBarFill.style.width = `${(habit.currentCount / habit.goal) * 100}%`;
+        progressBar.appendChild(progressBarFill);
+
         habitInfoDiv.appendChild(habitNameSpan);
         habitInfoDiv.appendChild(document.createElement('br'));
         habitInfoDiv.appendChild(counterSpan);
+        habitInfoDiv.appendChild(progressBar);
 
         const markDoneButton = document.createElement('button');
         markDoneButton.classList.add('mark-done');
@@ -62,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (habit.currentCount < habit.goal) {
                 habit.currentCount++;
                 counterSpan.textContent = `${habit.currentCount} / ${habit.goal}`;
+                progressBarFill.style.width = `${(habit.currentCount / habit.goal) * 100}%`;
 
                 if (habit.currentCount >= habit.goal) {
                     markDoneButton.disabled = true;
@@ -82,11 +92,44 @@ document.addEventListener("DOMContentLoaded", function() {
                 updateDailySummary();
                 updateWeeklySummary();
                 updateMonthlySummary();
+                updateChart();
             }
+        });
+
+        // Edit Habit Button
+        const editHabitButton = document.createElement('button');
+        editHabitButton.classList.add('edit-habit');
+        editHabitButton.textContent = 'Edit';
+
+        editHabitButton.addEventListener('click', function() {
+            const newName = prompt("Edit habit name:", habit.name);
+            if (newName) {
+                habit.name = newName;
+                saveHabits();
+                habitNameSpan.textContent = `${habit.name} (${habit.timeframe})`;
+                updateChart();
+            }
+        });
+
+        // Delete Habit Button
+        const deleteHabitButton = document.createElement('button');
+        deleteHabitButton.classList.add('delete-habit');
+        deleteHabitButton.textContent = 'Delete';
+
+        deleteHabitButton.addEventListener('click', function() {
+            habits.splice(habitIndex, 1);
+            saveHabits();
+            habitDiv.remove();
+            updateDailySummary();
+            updateWeeklySummary();
+            updateMonthlySummary();
+            updateChart();
         });
 
         habitDiv.appendChild(habitInfoDiv);
         habitDiv.appendChild(markDoneButton);
+        habitDiv.appendChild(editHabitButton);
+        habitDiv.appendChild(deleteHabitButton);
         habitContainer.appendChild(habitDiv);
     }
 
@@ -114,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
             updateDailySummary();
             updateWeeklySummary();
             updateMonthlySummary();
+            updateChart();
         } else {
             alert('Please enter a valid habit name and goal count.');
         }
@@ -186,6 +230,38 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Function to update the chart
+    function updateChart() {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const labels = habits.map(habit => habit.name);
+        const data = habits.map(habit => habit.currentCount);
+        
+        if (window.myChart) {
+            window.myChart.destroy(); // Destroy the old chart before creating a new one
+        }
+        
+        window.myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Current Progress',
+                    data: data,
+                    backgroundColor: 'rgba(0, 188, 212, 0.5)',
+                    borderColor: 'rgba(0, 188, 212, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
     // Load existing habits into the DOM
     habits.forEach((habit, index) => {
         addHabitToDOM(habit, index);
@@ -195,4 +271,5 @@ document.addEventListener("DOMContentLoaded", function() {
     updateDailySummary();
     updateWeeklySummary();
     updateMonthlySummary();
+    updateChart();
 });
