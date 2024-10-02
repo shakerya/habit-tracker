@@ -1,0 +1,113 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #f0f0f0, #cce7ff);
+    text-align: center;
+    color: #333;
+}
+
+#habit-container {
+    margin: 20px auto;
+    width: 60%;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.habit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #e6f7ff;
+    border-radius: 5px;
+    border: 1px solid #b3e5fc;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.habit:hover {
+    background-color: #d2f1ff;
+}
+
+.habit .habit-info {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.habit .counter {
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.mark-done {
+    padding: 8px 15px;
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.mark-done:hover {
+    background-color: #008fa1;
+}
+
+#add-habit-form {
+    margin: 20px auto;
+    width: 60%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#add-habit-form input, #add-habit-form select {
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#add-habit-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#add-habit-form button:hover {
+    background-color: #008fa1;
+}
+
+#summary-section {
+    margin: 20px auto;
+    width: 60%;
+}
+
+#daily-summary, #weekly-summary, #monthly-summary {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#summary-container, #weekly-summary-container, #monthly-summary-container {
+    text-align: left;
+}
+
+.summary-item {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+}
