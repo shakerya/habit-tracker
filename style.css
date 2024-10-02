@@ -40,8 +40,9 @@ body {
     font-weight: bold;
 }
 
-.mark-done {
+.mark-done, .edit-habit, .delete-habit {
     padding: 8px 15px;
+    margin-left: 5px;
     background-color: #00bcd4;
     color: white;
     border: none;
@@ -51,8 +52,16 @@ body {
     transition: background-color 0.3s ease-in-out;
 }
 
-.mark-done:hover {
+.mark-done:hover, .edit-habit:hover, .delete-habit:hover {
     background-color: #008fa1;
+}
+
+.delete-habit {
+    background-color: #e74c3c;
+}
+
+.delete-habit:hover {
+    background-color: #c0392b;
 }
 
 #add-habit-form {
@@ -100,6 +109,15 @@ body {
     margin-top: 20px;
 }
 
+#chart-section {
+    margin: 20px auto;
+    width: 60%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 #summary-container, #weekly-summary-container, #monthly-summary-container {
     text-align: left;
 }
@@ -110,4 +128,20 @@ body {
     background-color: #f9f9f9;
     border-radius: 5px;
     border: 1px solid #dddddd;
+}
+
+.progress-bar {
+    background: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 20px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.progress-bar-fill {
+    background: #00bcd4;
+    height: 100%;
+    width: 0%; /* Updated dynamically */
+    transition: width 0.3s ease-in-out;
 }
